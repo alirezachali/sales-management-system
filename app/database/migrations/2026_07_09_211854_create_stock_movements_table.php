@@ -19,10 +19,11 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->enum('type', [
-                'purchase',
-                'sale',
-                'return',
-                'adjustment'
+               'initial',
+               'purchase',
+               'sale',
+               'return',
+               'adjust'
             ]);
 
             $table->decimal('quantity', 12, 3);

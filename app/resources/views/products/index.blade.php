@@ -111,6 +111,94 @@
 
 </div>
 
+<div class="card mb-4">
+
+    <div class="card-body">
+
+        <form method="GET"
+              action="{{ route('products.index') }}">
+
+            <div class="row g-2">
+
+
+                <div class="col-md-5">
+
+                    <input type="text"
+                           name="search"
+                           class="form-control"
+                           placeholder="جستجو نام یا بارکد..."
+                           value="{{ request('search') }}">
+
+                </div>
+
+
+
+                <div class="col-md-3">
+
+                    <select name="category_id"
+                            class="form-select">
+
+
+                        <option value="">
+                            همه دسته بندی ها
+                        </option>
+
+
+                        @foreach($categories as $category)
+
+                            <option value="{{ $category->id }}"
+                            
+                            @selected(request('category_id') == $category->id)
+                            
+                            >
+
+                                {{ $category->name }}
+
+                            </option>
+
+                        @endforeach
+
+
+                    </select>
+
+                </div>
+
+
+
+                <div class="col-md-2">
+
+                    <button class="btn btn-primary w-100">
+
+                        <i class="bi bi-search"></i>
+
+                        جستجو
+
+                    </button>
+
+                </div>
+
+
+
+                <div class="col-md-2">
+
+                    <a href="{{ route('products.index') }}"
+                       class="btn btn-outline-secondary w-100">
+
+                        پاک کردن
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 <div class="card shadow-sm">
 
     <div class="card-header d-flex justify-content-between align-items-center">
@@ -175,16 +263,19 @@
 
                     <td>
 
-                        <a href="{{ route('products.edit',$product) }}"
-                           class="btn btn-warning btn-sm">
+                            <a href="{{ route('products.edit',$product) }}"
+                                class="btn btn-sm btn-outline-primary">
+                                <i class="bi bi-pencil"></i>
+                            </a>
 
-                            ویرایش
+                            <a href="{{ route('products.stock',$product) }}"
+                                class="btn btn-sm btn-outline-warning">
+                                <i class="bi bi-boxes"></i>
+                            </a>
 
-                        </a>
-
-                        <form action="{{ route('products.destroy',$product) }}"
-                              method="POST"
-                              class="d-inline">
+                            <form action="{{ route('products.destroy',$product) }}"
+                                  method="POST"
+                                  class="d-inline">
 
                             @csrf
 
@@ -193,12 +284,20 @@
                             <button
                                 class="btn btn-danger btn-sm"
                                 onclick="return confirm('حذف شود؟')">
-
                                 حذف
-
                             </button>
 
-                        </form>
+                            <a href="{{ route('products.stock.create',$product) }}"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="bi bi-plus-circle"></i>
+                            </a>
+
+                            <a href="{{ route('products.sale.create',$product) }}"
+                                class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-dash-circle"></i>
+                            </a>
+
+                            </form>
 
                     </td>
 
