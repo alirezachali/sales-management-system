@@ -25,11 +25,23 @@ class DashboardController extends Controller
         $lowStockProducts = Product::where('stock', '<=', 5)
             ->count();
 
+        $latestSales = Sale::with('user')
+            ->latest()
+            ->take(10)
+            ->get(); 
+            
+        $lowStockList = Product::where('stock', '<=', 5)
+            ->orderBy('stock')
+            ->take(10)
+            ->get();
+
         return view('dashboard.index', compact(
             'todaySales',
             'todayInvoices',
             'productsCount',
-            'lowStockProducts'
+            'lowStockProducts',
+            'latestSales',
+            'lowStockList'
         ));
     }
 }

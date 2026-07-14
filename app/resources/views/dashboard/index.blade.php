@@ -142,6 +142,137 @@
 
         </div>
 
+
+        <div class="row mt-4">
+
+            <div class="col-lg-8">
+
+                <div class="card dashboard-card">
+
+                    <div class="card-header">
+
+                        <strong>آخرین فروش‌ها</strong>
+
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle mb-0">
+
+                            <thead>
+
+                            <tr>
+
+                                <th>فاکتور</th>
+
+                                <th>صندوق‌دار</th>
+
+                                <th>مبلغ</th>
+
+                                <th>تاریخ</th>
+
+                                <th width="120">عملیات</th>
+
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            @forelse($latestSales as $sale)
+
+                                <tr>
+
+                                    <td>{{ $sale->invoice_number }}</td>
+
+                                    <td>{{ $sale->user->name ?? '-' }}</td>
+
+                                    <td>{{ number_format($sale->final_price) }}</td>
+
+                                    <td>{{ $sale->created_at->format('Y/m/d H:i') }}</td>
+
+                                    <td>
+
+                                        <a  href="{{ route('invoice', $sale) }}"
+                                            target="_blank"
+                                            class="btn btn-sm btn-outline-primary">
+
+                                            👁️
+
+                                        </a>
+
+                                    </td>
+
+                                </tr>
+
+                            @empty
+
+                                <tr>
+
+                                    <td colspan="5" class="text-center">
+
+                                        هنوز فروشی ثبت نشده است.
+
+                                    </td>
+
+                                </tr>
+
+                            @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4">
+
+                <div class="card dashboard-card">
+
+                    <div class="card-header bg-danger text-white">
+
+                        ⚠️ کالاهای کم‌موجودی
+
+                    </div>
+
+                    <div class="list-group list-group-flush">
+
+                        @forelse($lowStockList as $product)
+
+                            <div class="list-group-item d-flex justify-content-between">
+
+                                <span>{{ $product->name }}</span>
+
+                                <span class="badge bg-danger">
+
+                                    {{ $product->stock }}
+
+                                </span>
+
+                            </div>
+
+                        @empty
+
+                            <div class="list-group-item">
+
+                                همه کالاها موجودی مناسبی دارند.
+
+                            </div>
+
+                        @endforelse
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
 </div>
