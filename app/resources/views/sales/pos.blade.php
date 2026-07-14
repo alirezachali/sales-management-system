@@ -90,6 +90,109 @@
 
         </div>
 
+        <div class="modal fade" id="paymentModal" tabindex="-1">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    پرداخت فاکتور
+                </h5>
+
+                <button
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+
+                    <label>جمع کل</label>
+
+                    <input
+                        id="totalPrice"
+                        class="form-control"
+                        readonly>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>تخفیف</label>
+
+                    <input
+                        id="discount"
+                        type="number"
+                        class="form-control"
+                        value="0">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>مبلغ نهایی</label>
+
+                    <input
+                        id="finalPrice"
+                        class="form-control"
+                        readonly>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>مبلغ دریافتی</label>
+
+                    <input
+                        id="paidAmount"
+                        type="number"
+                        class="form-control">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label>باقی‌مانده</label>
+
+                    <input
+                        id="changeAmount"
+                        class="form-control"
+                        readonly>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    انصراف
+
+                </button>
+
+                <button
+                    class="btn btn-success"
+                    id="confirmSale">
+
+                    ثبت فروش
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
         </div>
 
     </div>
@@ -98,21 +201,28 @@
 
 @push('scripts')
 <script>
-
 let cart = [];
+
+
+function calculateTotal()
+{
+    return cart.reduce((sum, item) => {
+
+        return sum + (item.price * item.quantity);
+
+    }, 0);
+}
+
+
 function renderCart() {
 
     let tbody = document.getElementById('cart-body');
 
     tbody.innerHTML = '';
 
-    let total = 0;
+    cart.forEach((item) => {
 
-    cart.forEach((item, index) => {
-
-        let rowTotal = item.quantity * item.price;
-
-        total += rowTotal;
+    let rowTotal = item.quantity * item.price;
 
         tbody.innerHTML += `
 
@@ -169,7 +279,14 @@ function renderCart() {
     document.getElementById('grand-total').innerHTML =
         Number(total).toLocaleString();
 
+    const total = calculateTotal();
+   
+
 }
+
+
+
+
 
 function removeItem(id)
 {
@@ -203,50 +320,7 @@ function decrease(id)
     renderCart();
 }
 
-document
-.getElementById('checkout-btn')
-.addEventListener('click', checkout);
 
-function checkout()
-{
-
-    if(cart.length === 0){
-
-        alert('سبد خرید خالی است');
-
-        return;
-    }
-
-    fetch('/pos/checkout', {
-
-        method: 'POST',
-
-        headers: {
-
-            'Content-Type': 'application/json',
-
-            'X-CSRF-TOKEN':
-                document
-                .querySelector(
-                    'meta[name="csrf-token"]'
-                )
-                .content
-
-        },
-
-        body: JSON.stringify({
-            cart: cart
-        })
-
-    })
-    .then(res => res.json())
-    .then(data => {
-
-        console.log(data);
-
-    });
-
-}
 
 const barcode = document.getElementById('barcode');
 
@@ -297,13 +371,43 @@ this.value = '';
 
 this.focus();
 
-this.value = '';
-
-this.focus();
-
         });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+const modal = new bootstrap.Modal(
+    document.getElementById('paymentModal')
+);
+
+document
+.getElementById('checkout-btn')
+.addEventListener('click', function () {
+
+    const total = calculateTotal();
+
+    document.getElementById('totalPrice').value = total.toLocaleString();
+
+    document.getElementById('finalPrice').value = total.toLocaleString();
+
+    modal.show();
+
+});
+
+
+
+
 
 </script>
 @endpush
