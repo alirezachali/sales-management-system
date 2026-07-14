@@ -18,7 +18,7 @@
 </head>
 
 
-<body>
+<body data-bs-theme="dark">
 
 <div class="page">
 

@@ -201,6 +201,8 @@
 
 @push('scripts')
 <script>
+
+
 let cart = [];
 
 
@@ -276,11 +278,9 @@ function renderCart() {
 
     });
 
+    const total = calculateTotal();
     document.getElementById('grand-total').innerHTML =
         Number(total).toLocaleString();
-
-    const total = calculateTotal();
-   
 
 }
 
