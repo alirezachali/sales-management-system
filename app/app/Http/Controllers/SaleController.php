@@ -66,5 +66,16 @@ class SaleController extends Controller
     {
         $this->saleService = $saleService;
     }
+
+
+    public function invoice(\App\Models\Sale $sale)
+    {
+        $sale->load([
+            'items.product',
+            'user'
+        ]);
+
+        return view('sales.invoice', compact('sale'));
+    }
 }
 

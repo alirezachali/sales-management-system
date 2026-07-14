@@ -55,4 +55,8 @@ Route::get('/pos/product', [SaleController::class, 'findProduct'])
 Route::post(
     '/pos/checkout',
     [SaleController::class, 'checkout']
-)->name('pos.checkout');    
+)->name('pos.checkout');
+
+
+Route::get('/invoice/{sale}', [SaleController::class, 'invoice'])
+    ->name('invoice');

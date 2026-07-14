@@ -392,30 +392,38 @@ document.getElementById('checkout-btn').addEventListener('click', function () {
 document.getElementById('confirmSale').addEventListener('click', function () {
 
     fetch('/pos/checkout', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-    },
-    body: JSON.stringify({
-        cart: cart,
-        discount: Number(document.getElementById('discount').value),
-        payment_type: 'cash'
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({
+            cart: cart,
+            discount: Number(document.getElementById('discount').value),
+            payment_type: 'cash'
+        })
     })
-    })
+
     .then(async response => {
 
-        console.log('STATUS:', response.status);
-        const text = await response.text();
-        console.log(text);
+        const data = await response.json();
+
+        console.log(data);
+
+        if (!data.success) {
+            alert('ثبت فروش انجام نشد');
+            return;
+        }
 
         const success = document.getElementById('success-alert');
 
         success.classList.remove('d-none');
 
         setTimeout(() => {
-        success.classList.add('d-none');
-        },3000);
+            success.classList.add('d-none');
+        }, 3000);
+
+        window.open('/invoice/' + data.sale_id, '_blank');
 
         cart = [];
         renderCart();
@@ -425,6 +433,7 @@ document.getElementById('confirmSale').addEventListener('click', function () {
         document.getElementById('barcode').focus();
 
     })
+
     .catch(error => {
 
     console.error(error);
@@ -432,7 +441,6 @@ document.getElementById('confirmSale').addEventListener('click', function () {
     });
 
 });
-
 
 
 </script>
