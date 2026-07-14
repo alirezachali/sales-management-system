@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,3 +61,10 @@ Route::post(
 
 Route::get('/invoice/{sale}', [SaleController::class, 'invoice'])
     ->name('invoice');
+
+
+Route::get('/settings', [SettingController::class, 'index'])
+    ->name('settings.index');
+
+Route::post('/settings', [SettingController::class, 'update'])
+    ->name('settings.update');

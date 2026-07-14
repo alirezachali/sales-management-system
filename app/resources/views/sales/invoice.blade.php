@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
-    <title>فاکتور</title>
+
+    <title>فاکتور {{ $sale->invoice_number }}</title>
+
+    @include('sales.invoice.style')
+
 </head>
+
 <body>
 
-<h2>فاکتور فروش</h2>
+<div class="receipt">
 
-<p>شماره فاکتور: {{ $sale->invoice_number }}</p>
+    @include('sales.invoice.header')
 
-<p>تاریخ: {{ $sale->created_at }}</p>
+    @include('sales.invoice.items')
 
-<hr>
+    @include('sales.invoice.totals')
 
-<table border="1" cellpadding="5" cellspacing="0" width="100%">
-    <tr>
-        <th>کالا</th>
-        <th>تعداد</th>
-        <th>قیمت</th>
-        <th>جمع</th>
-    </tr>
+    @include('sales.invoice.footer')
 
-    @foreach($sale->items as $item)
-        <tr>
-            <td>{{ $item->product->name }}</td>
-            <td>{{ $item->quantity }}</td>
-            <td>{{ number_format($item->unit_price) }}</td>
-            <td>{{ number_format($item->line_total) }}</td>
-        </tr>
-    @endforeach
+</div>
 
-</table>
+<div style="margin-top:10px">
 
-<hr>
+{{ now()->format('Y/m/d H:i:s') }}
 
-<h3>جمع کل: {{ number_format($sale->final_price) }} تومان</h3>
+</div>
 
 <script>
+
 window.onload = function () {
     window.print();
-}
+};
+
+window.onafterprint = function () {
+    window.close();
+};
+
 </script>
 
 </body>
+
 </html>
