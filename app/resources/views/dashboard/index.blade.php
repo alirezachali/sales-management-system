@@ -12,19 +12,35 @@
 
     <div class="row g-4">
 
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6">
 
-            <div class="card shadow-sm">
+            <div class="card dashboard-card">
 
                 <div class="card-body">
 
-                    <h6>فروش امروز</h6>
+                    <div class="dashboard-icon bg-sales">
 
-                    <h3>
+                        💰
+
+                    </div>
+
+                    <div class="dashboard-title">
+
+                        فروش امروز
+
+                    </div>
+
+                    <div class="dashboard-number">
 
                         {{ number_format($todaySales) }}
 
-                    </h3>
+                    </div>
+
+                    <small>
+
+                        تومان
+
+                    </small>
 
                 </div>
 
@@ -32,19 +48,31 @@
 
         </div>
 
-        <div class="col-md-3">
 
-            <div class="card shadow-sm">
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card">
 
                 <div class="card-body">
 
-                    <h6>فاکتورهای امروز</h6>
+                    <div class="dashboard-icon bg-invoice">
 
-                    <h3>
+                        🧾
+
+                    </div>
+
+                    <div class="dashboard-title">
+
+                        فاکتورهای امروز 
+
+                    </div>
+
+                    <div class="dashboard-number">
 
                         {{ $todayInvoices }}
 
-                    </h3>
+                    </div>
 
                 </div>
 
@@ -52,39 +80,61 @@
 
         </div>
 
-        <div class="col-md-3">
 
-            <div class="card shadow-sm">
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card">
 
                 <div class="card-body">
 
-                    <h6>تعداد کالاها</h6>
+                    <div class="dashboard-icon bg-product">
 
-                    <h3>
+                        📦
+
+                    </div>
+
+                    <div class="dashboard-title">
+
+                        تعداد کالاها
+
+                    </div>
+
+                    <div class="dashboard-number">
 
                         {{ $productsCount }}
 
-                    </h3>
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
+        
 
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-6">
 
-            <div class="card shadow-sm">
+            <div class="card dashboard-card">
 
                 <div class="card-body">
 
-                    <h6>کالاهای کم موجودی</h6>
+                    <div class="dashboard-icon bg-stock">
 
-                    <h3>
+                        ⚠️
+
+                    </div>
+
+                    <div class="dashboard-title">
+
+                        کالاهای کم موجود
+
+                    </div>
+
+                    <div class="dashboard-number">
 
                         {{ $lowStockProducts }}
 
-                    </h3>
+                    </div>
 
                 </div>
 

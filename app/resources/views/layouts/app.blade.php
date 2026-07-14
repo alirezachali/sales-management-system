@@ -15,6 +15,8 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+
 </head>
 
 
