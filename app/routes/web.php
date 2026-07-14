@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,3 +69,7 @@ Route::get('/settings', [SettingController::class, 'index'])
 
 Route::post('/settings', [SettingController::class, 'update'])
     ->name('settings.update');
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
