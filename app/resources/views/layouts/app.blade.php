@@ -1,210 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
 
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ setting('store_name') }}</title>
 
-    <title>
-        @yield('title', 'سیستم مدیریت فروش')
-    </title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 </head>
 
+<body>
 
-<body data-bs-theme="dark">
+@include('partials.navbar')
 
-<div class="page">
+<div class="wrapper">
 
-    {{-- Sidebar --}}
-    <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark">
+    @include('partials.sidebar')
 
-        <div class="container-fluid">
+    <main class="content">
 
+        @yield('content')
 
-            <h1 class="navbar-brand navbar-brand-autodark">
-                <span>
-                    Woxilon
-                </span>
-            </h1>
-
-
-            <div class="collapse navbar-collapse show">
-
-                <ul class="navbar-nav">
-
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span class="nav-link-icon">
-                                <i class="bi bi-speedometer2"></i>
-                            </span>
-                            داشبورد
-                        </a>
-                    </li>
-
-
-                    <li class="nav-item">
-
-                        <a class="nav-link"
-                           href="{{ route('products.index') }}">
-
-                            <span class="nav-link-icon">
-                                <i class="bi bi-box-seam"></i>
-                            </span>
-
-                            کالاها
-
-                        </a>
-
-                    </li>
-
-
-                    <li class="nav-item">
-
-                        <a class="nav-link" href="{{ route('pos.index') }}">
-
-                            <span class="nav-link-icon">
-                                <i class="bi bi-cart"></i>
-                            </span>
-
-                            فروش
-
-                        </a>
-
-                    </li>
-
-
-                    <li class="nav-item">
-
-                        <a class="nav-link" href="#">
-
-                            <span class="nav-link-icon">
-                                <i class="bi bi-bar-chart"></i>
-                            </span>
-
-                            گزارشات
-
-                        </a>
-
-                    </li>
-
-
-                </ul>
-
-            </div>
-
-        </div>
-
-    </aside>
-
-
-
-    {{-- Main --}}
-
-    <div class="page-wrapper">
-
-
-        <header class="navbar navbar-expand-md d-print-none">
-
-            <div class="container-xl">
-
-                <div class="navbar-nav flex-row order-md-last">
-
-                    <div class="nav-item">
-
-                        <span class="nav-link">
-
-                            مدیر سیستم
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </header>
-
-
-
-        <div class="page-body">
-
-            <div class="container-xl">
-
-                @if(session('success'))
-
-                    <div class="alert alert-success">
-
-                        {{ session('success') }}
-
-                    </div>
-
-                @endif
-
-                @yield('content')
-
-            </div>
-
-        </div>
-
-
-
-    </div>
-
+    </main>
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
 
-const ctx = document.getElementById('salesChart');
+@include('partials.footer')
 
-new Chart(ctx,{
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
-    type:'line',
+<script src="{{ asset('js/app.js') }}"></script>
 
-    data:{
-
-        labels:@json($labels),
-
-        datasets:[{
-
-            label:'فروش',
-
-            data:@json($data),
-
-            borderWidth:3,
-
-            fill:true,
-
-            tension:.4
-
-        }]
-
-    },
-
-    options:{
-
-        responsive:true,
-
-        maintainAspectRatio:false
-
-    }
-
-});
-
-</script>
-@stack('scripts')
 </body>
 
 </html>
