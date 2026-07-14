@@ -164,6 +164,46 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+const ctx = document.getElementById('salesChart');
+
+new Chart(ctx,{
+
+    type:'line',
+
+    data:{
+
+        labels:@json($labels),
+
+        datasets:[{
+
+            label:'فروش',
+
+            data:@json($data),
+
+            borderWidth:3,
+
+            fill:true,
+
+            tension:.4
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        maintainAspectRatio:false
+
+    }
+
+});
+
+</script>
 @stack('scripts')
 </body>
 

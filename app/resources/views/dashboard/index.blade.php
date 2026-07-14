@@ -272,6 +272,26 @@
 
             </div>
 
+            <div class="card dashboard-card mt-4">
+
+    <div class="card-header">
+
+        <strong>
+
+            نمودار فروش ۳۰ روز اخیر
+
+        </strong>
+
+    </div>
+
+    <div class="card-body">
+
+        <canvas id="salesChart"></canvas>
+
+    </div>
+
+</div>
+
         </div>
     </div>
 

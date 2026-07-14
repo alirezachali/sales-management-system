@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Sale;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Carbon\CarbonPeriod;
 
 class DashboardController extends Controller
 {
@@ -35,13 +36,29 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
 
+        $period = CarbonPeriod::create(now()->subDays(29), now());
+
+        $labels = [];
+        $data = [];
+
+        foreach ($period as $date) {
+
+            $labels[] = $date->format('m/d');
+
+            $data[] = Sale::whereDate('created_at', $date)
+                ->sum('final_price');
+
+        }
+
         return view('dashboard.index', compact(
             'todaySales',
             'todayInvoices',
             'productsCount',
             'lowStockProducts',
             'latestSales',
-            'lowStockList'
+            'lowStockList',
+            'labels',
+            'data',
         ));
     }
 }
