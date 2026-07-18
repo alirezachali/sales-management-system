@@ -1,4 +1,7 @@
+
 @extends('layouts.app')
+
+@section('title', 'تنظیمات برنامه')
 
 @section('content')
 

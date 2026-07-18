@@ -1,6 +1,7 @@
+
 @extends('layouts.app')
 
-@section('title','مدیریت کالاها')
+@section('title', 'مدیریت محصولات')
 
 @section('content')
 

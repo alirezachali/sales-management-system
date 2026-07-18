@@ -19,7 +19,7 @@
         </li>
 
         <li>
-            <a href="#"
+            <a href="{{ route('categories.index') }}"
                class="{{ request()->routeIs('categories.*') ? 'active' : '' }}">
                 <i class="bi bi-grid"></i>
                 <span>دسته‌بندی</span>
@@ -27,14 +27,16 @@
         </li>
 
         <li>
-            <a href="{{ route('pos.index') }}">
+            <a href="{{ route('pos.index') }}"
+                class="{{ request()->routeIs('pos.*') ? 'active' : '' }}">
                 <i class="bi bi-cart-check"></i>
                 <span>صندوق فروش</span>
             </a>
         </li>
 
         <li>
-            <a href="{{ route('settings.index') }}">
+            <a href="{{ route('settings.index') }}"
+                class="{{ request()->routeIs('settings.*') ? 'active' : '' }}">
                 <i class="bi bi-gear"></i>
                 <span>تنظیمات</span>
             </a>

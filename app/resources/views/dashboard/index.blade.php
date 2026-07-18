@@ -1,4 +1,7 @@
+
 @extends('layouts.app')
+
+@section('title', 'داشبرد مدیریتی')
 
 @section('content')
 
@@ -297,4 +300,32 @@
 
 </div>
 
+@endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const ctx = document.getElementById('salesChart');
+
+if (ctx) {
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: @json($labels),
+            datasets: [{
+                label: 'فروش',
+                data: @json($data),
+                borderWidth: 3,
+                fill: true,
+                tension: .4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+</script>
 @endsection

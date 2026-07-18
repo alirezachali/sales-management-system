@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,3 +74,6 @@ Route::post('/settings', [SettingController::class, 'update'])
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
+
+
+Route::resource('categories', CategoryController::class);    

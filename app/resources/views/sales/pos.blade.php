@@ -1,6 +1,7 @@
+
 @extends('layouts.app')
 
-@section('title','صندوق فروش')
+@section('title', 'صندوق فروش')
 
 @section('content')
 
