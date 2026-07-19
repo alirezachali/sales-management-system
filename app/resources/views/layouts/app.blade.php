@@ -10,6 +10,8 @@
 
     <title>@yield('title', setting('store_name'))</title>
 
+    <link rel="icon" href="{{ storeFavicon() }}">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/sidebar.css') }}" rel="stylesheet">
@@ -24,6 +26,7 @@
 </head>
 
 <body>
+
 
 @include('partials.navbar')
 

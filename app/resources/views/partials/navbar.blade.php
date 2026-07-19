@@ -1,5 +1,7 @@
 <nav class="navbar navbar-expand-lg top-navbar">
 
+    
+
     <div class="container-fluid">
 
         <button class="btn btn-light me-3" id="toggleSidebar">
@@ -8,13 +10,17 @@
 
         </button>
 
-        <a class="navbar-brand fw-bold" href="{{ route('dashboard') }}">
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
 
-            <i class="bi bi-shop"></i>
+            <img src="{{ storeLogo() }}" alt="Logo" height="45">
 
-            {{ setting('store_name','سیستم فروش') }}
+            <span class="ms-2 fw-bold">
+                {{ setting('store_name', '') }}
+            </span>
 
         </a>
+
+    
 
         <div class="ms-auto d-flex align-items-center">
 

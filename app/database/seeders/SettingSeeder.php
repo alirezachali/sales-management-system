@@ -46,8 +46,19 @@ class SettingSeeder extends Seeder
 
                 ['value' => $value]
  
+            );
+
+        }
+
+        Setting::updateOrCreate(
+            ['key' => 'store_logo'],
+            ['value' => 'settings/logo.png']
         );
 
-}
+        Setting::updateOrCreate(
+            ['key' => 'store_favicon'],
+            ['value' => 'settings/favicon.ico']
+        );
+
     }
 }
