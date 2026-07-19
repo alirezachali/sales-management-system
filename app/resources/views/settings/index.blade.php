@@ -198,41 +198,44 @@
 
 @endsection
 
+
+
+@section('scripts')
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
 
-    // بازیابی آخرین تب باز شده
-    const activeTab = localStorage.getItem('settings-tab');
+    document.addEventListener('DOMContentLoaded', function () {
 
-    if (activeTab) {
-        const trigger = document.querySelector(
-            `[data-bs-target="${activeTab}"]`
-        );
+        // بازیابی آخرین تب باز شده
+        const activeTab = localStorage.getItem('settings-tab');
 
-        if (trigger) {
-            bootstrap.Tab.getOrCreateInstance(trigger).show();
-        }
-    }
-
-    // ذخیره تب فعال
-    document.querySelectorAll('#settingsTabs .nav-link').forEach(tab => {
-
-        tab.addEventListener('shown.bs.tab', function () {
-
-            localStorage.setItem(
-                'settings-tab',
-                this.dataset.bsTarget
+        if (activeTab) {
+            const trigger = document.querySelector(
+                `[data-bs-target="${activeTab}"]`
             );
+
+            if (trigger) {
+                bootstrap.Tab.getOrCreateInstance(trigger).show();
+            }
+        }
+
+        // ذخیره تب فعال
+        document.querySelectorAll('#settingsTabs .nav-link').forEach(tab => {
+
+            tab.addEventListener('shown.bs.tab', function () {
+
+                localStorage.setItem(
+                    'settings-tab',
+                    this.dataset.bsTarget
+                );
+
+            });
 
         });
 
     });
-
-});
+    
 </script>
-
-@section('scripts')
-
 
 
 

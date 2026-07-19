@@ -87,9 +87,7 @@ class SettingController extends Controller
             );
         }
 
-        return redirect()->route('settings.index', [
-    'tab' => $request->active_tab ?: 'store'
-])->with('success', 'تنظیمات با موفقیت ذخیره شد.');
-
-    }
+        return redirect()->route('settings.index', ['tab' => $request->active_tab ?: 'store'])
+            ->with('success', 'تنظیمات با موفقیت ذخیره شد.');
+        }
 }

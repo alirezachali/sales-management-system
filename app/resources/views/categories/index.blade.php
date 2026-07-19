@@ -3,6 +3,34 @@
 
 @section('title', 'مدیریت دسته‌بندی محصولات')
 
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+        <i class="bi bi-check-circle-fill me-2"></i>
+
+        {{ session('success') }}
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"></button>
+
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+        {{ session('error') }}
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"></button>
+
+    </div>
+@endif
+
 @section('content')
 
 <div class="container">
@@ -57,9 +85,13 @@
 
                         <th>نام دسته‌بندی</th>
 
+                        <th>توضیحات</th>
+
                         <th width="140">تعداد کالا</th>
 
                         <th width="180">تاریخ ایجاد</th>
+
+                        <th>وضعیت</th>
 
                         <th width="140">عملیات</th>
 
@@ -83,6 +115,12 @@
 
                             <td>
 
+                                {{ $category->description }}
+
+                            </td>
+
+                            <td>
+
                                 <span class="badge bg-primary">
 
                                     {{ $category->products_count }}
@@ -99,13 +137,39 @@
 
                             <td>
 
-                                <button class="btn btn-sm btn-primary">
+                                @if($category->is_active)
+
+                                    <span class="badge bg-success">
+                                        فعال
+                                    </span>
+
+                               @else
+
+                                   <span class="badge bg-danger">
+                                       غیرفعال
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+                            <td>
+
+                               <button type="button"
+                                       class="btn btn-sm btn-primary btn-edit"
+                                       data-id="{{ $category->id }}"
+                                       data-name="{{ $category->name }}"
+                                       data-description="{{ $category->description }}"
+                                       data-active="{{ $category->is_active }}">
 
                                     <i class="bi bi-pencil-square"></i>
 
                                 </button>
 
-                                <button class="btn btn-sm btn-danger">
+                                <button type="button"
+                                        class="btn btn-sm btn-danger btn-delete"
+                                        data-id="{{ $category->id }}"
+                                        data-name="{{ $category->name }}">
 
                                     <i class="bi bi-trash"></i>
 
@@ -153,4 +217,98 @@
 
 </div>
 
+@include('categories.modals.create')
+
+@include('categories.modals.edit')
+
+@include('categories.modals.delete')
+
 @endsection
+
+@section('scripts')
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const createModal = new bootstrap.Modal(
+        document.getElementById('createCategoryModal')
+    );
+
+    document.getElementById('btnAddCategory')
+        .addEventListener('click', function () {
+
+            document.getElementById('createCategoryForm').reset();
+
+            createModal.show();
+
+        });
+
+
+
+     const editModal = new bootstrap.Modal(
+    document.getElementById('editCategoryModal')
+);
+
+document.querySelectorAll('.btn-edit').forEach(btn => {
+
+    btn.addEventListener('click', function () {
+
+        document.getElementById('edit_id').value =
+            this.dataset.id;
+
+
+        document.getElementById('editCategoryForm').action =
+            '/categories/' + this.dataset.id;
+
+
+        document.getElementById('edit_name').value =
+            this.dataset.name;
+
+        document.getElementById('edit_description').value =
+            this.dataset.description ?? '';
+
+        document.getElementById('edit_is_active').checked =
+            this.dataset.active == 1;
+
+        editModal.show();
+
+    });
+
+});
+
+
+
+const deleteModal = new bootstrap.Modal(
+    document.getElementById('deleteCategoryModal')
+);
+
+document.querySelectorAll('.btn-delete').forEach(btn => {
+
+    btn.addEventListener('click', function () {
+
+        document.getElementById('delete_id').value =
+            this.dataset.id;
+
+        document.getElementById('deleteCategoryForm').action =
+        '/categories/' + this.dataset.id;
+
+
+        document.getElementById('delete_category_name').innerText =
+            this.dataset.name;
+
+        deleteModal.show();
+
+    });
+
+});   
+
+});
+
+
+
+
+
+</script>
+
+
